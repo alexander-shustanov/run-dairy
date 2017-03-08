@@ -1,0 +1,84 @@
+$color_accent: #FF4081;
+$color_nav_bar: #2196F3;
+$fab_size: 4em;
+$nav_bar_height: 3em;
+
+@mixin elevation( $depth ) {
+    z-index: $depth;
+
+    box-shadow: none;
+
+    @if $depth < 1 {
+        box-shadow: none;
+        z-index: 0;
+    }
+
+    @if $depth == 1 {
+        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    @if $depth == 2 {
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2),
+        0 6px 10px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    @if $depth == 3 {
+        box-shadow: 0 11px 7px 0 rgba(0, 0, 0, 0.19),
+        0 13px 25px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    @if $depth == 4 {
+        box-shadow: 0 14px 12px 0 rgba(0, 0, 0, 0.17),
+        0 20px 40px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    @if $depth == 5 {
+        box-shadow: 0 17px 17px 0 rgba(0, 0, 0, 0.15),
+        0 27px 55px 0 rgba(0, 0, 0, 0.3);
+    }
+}
+
+#nav_bar {
+    @include elevation(2);
+
+    width: 100%;
+    height: $nav_bar_height;
+    background-color: #2196F3;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#add_record_fab {
+    background: $color_accent url("../img/add.svg") no-repeat center;
+    width: $fab_size;
+    height: $fab_size;
+    position: absolute;
+    right: 2em;
+    bottom: 2em;
+    border-radius: 50%;
+    transition: 0.3s;
+
+    @include elevation(2);
+    &:hover {
+        @include elevation(3);
+        width: $fab_size*1.1;
+        height: $fab_size*1.1;
+        right: 2em - $fab_size*0.05;
+        bottom: 2em - $fab_size*0.05;
+        transition: 0.3s;
+    }
+}
+
+.paper {
+    @include elevation(1);
+    margin: 1em;
+    margin-top: $nav_bar_height - 1em;
+    padding: 1em;
+    padding-top: 2em;
+    border-radius: 0.2em;
+}
+
+.record_item {
+
+}
