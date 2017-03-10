@@ -41,4 +41,113 @@
   padding-top: 2em;
   border-radius: 0.2em; }
 
+@keyframes calendar_content_appearing_animation {
+  0% {
+    -webkit-transform: translateY(-50%);
+    opacity: 0; }
+  90% {
+    opacity: 0.5; }
+  100% {
+    -webkit-transform: translateY(0);
+    opacity: 1; } }
+@keyframes calendar_content_sliding_left_animation {
+  0% {
+    -webkit-transform: translateX(0%);
+    opacity: 1; }
+  10% {
+    opacity: 0.5; }
+  100% {
+    -webkit-transform: translateX(-20%);
+    opacity: 0; } }
+@keyframes calendar_content_sliding_right_animation {
+  0% {
+    -webkit-transform: translateX(0%);
+    opacity: 1; }
+  10% {
+    opacity: 0.5; }
+  100% {
+    -webkit-transform: translateX(20%);
+    opacity: 0; } }
+#calendar {
+  margin: 0 auto; }
+
+#calendar_header {
+  margin: auto;
+  width: 240px;
+  position: relative; }
+
+#calendar_header h1 {
+  text-align: center;
+  margin: auto;
+  padding: 0;
+  width: 240px;
+  font-size: 20px;
+  line-height: 50px;
+  font-weight: 100;
+  letter-spacing: 1px; }
+
+#calendar_header_left, #calendar_header_right {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  cursor: pointer;
+  margin-top: -2em;
+  left: 2em; }
+
+#calendar_header_left {
+  border-width: 7.5px 10px 7.5px 0;
+  border-color: transparent #a09fa0 transparent transparent; }
+
+#calendar_header_right {
+  right: 2em;
+  left: auto;
+  border-width: 7.5px 0 7.5px 10px;
+  border-color: transparent transparent transparent #a09fa0; }
+
+.calendar_content_container {
+  width: 840px;
+  margin: auto;
+  position: relative; }
+
+.calendar_content {
+  width: 840px;
+  margin: auto;
+  left: auto;
+  right: auto; }
+
+.calendar_content_prev, .calendar_content_next {
+  position: relative;
+  top: -100%;
+  width: auto;
+  margin: auto;
+  z-index: -1; }
+
+.calendar_content_prev {
+  animation: calendar_content_sliding_right_animation 0.3s; }
+
+.calendar_content_next {
+  animation: calendar_content_sliding_left_animation 0.3s; }
+
+.calendar_content_appear {
+  animation: calendar_content_appearing_animation 0.3s; }
+
+.calendar_day {
+  width: 100px;
+  display: inline-block;
+  margin: 10px 10px; }
+
+@media (max-width: 1023px) {
+  .calendar_day {
+    width: 80px; }
+
+  .calendar_content_container, .calendar_content {
+    width: 700px; } }
+@media (max-width: 767px) {
+  .calendar_day {
+    width: 15px; }
+
+  .calendar_content_container, .calendar_content {
+    width: 245px; } }
+
 /*# sourceMappingURL=main.css.map */

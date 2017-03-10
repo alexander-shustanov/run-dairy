@@ -2,6 +2,9 @@ $color_accent: #FF4081;
 $color_nav_bar: #2196F3;
 $fab_size: 4em;
 $nav_bar_height: 3em;
+$day_block_width_desktop: 100px;
+$day_block_width_tablet: 80px;
+$day_block_width_mobile: 15px;
 
 @mixin elevation( $depth ) {
     z-index: $depth;
@@ -81,4 +84,158 @@ $nav_bar_height: 3em;
 
 .record_item {
 
+}
+
+@keyframes calendar_content_appearing_animation {
+    0% {
+        -webkit-transform: translateY(-50%);
+        opacity: 0;
+    }
+
+    90% {
+        opacity: 0.5;
+    }
+
+    100% {
+        -webkit-transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes calendar_content_sliding_left_animation {
+    0% {
+        -webkit-transform: translateX(0%);
+        opacity: 1;
+    }
+
+    10% {
+        opacity: 0.5;
+    }
+
+    100% {
+        -webkit-transform: translateX(-20%);
+        opacity: 0;
+    }
+}
+
+@keyframes calendar_content_sliding_right_animation {
+    0% {
+        -webkit-transform: translateX(0%);
+        opacity: 1;
+    }
+
+    10% {
+        opacity: 0.5;
+    }
+
+    100% {
+        -webkit-transform: translateX(20%);
+        opacity: 0;
+    }
+}
+
+#calendar {
+    margin: 0 auto;
+}
+
+#calendar_header {
+    margin: auto;
+    width: 240px;
+    position: relative;
+}
+
+#calendar_header h1 {
+    text-align: center;
+    margin: auto;
+    padding: 0;
+    width: 240px;
+    font-size: 20px;
+    line-height: 50px;
+    font-weight: 100;
+    letter-spacing: 1px;
+    //display: inline;
+}
+
+#calendar_header_left, #calendar_header_right {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    cursor: pointer;
+    margin-top: -2em;
+    left: 2em;
+}
+
+#calendar_header_left {
+    border-width: 7.5px 10px 7.5px 0;
+    border-color: transparent rgba(160, 159, 160, 1) transparent transparent;
+}
+
+#calendar_header_right {
+    right: 2em;
+    left: auto;
+
+    border-width: 7.5px 0 7.5px 10px;
+    border-color: transparent transparent transparent rgba(160, 159, 160, 1);
+}
+
+.calendar_content_container {
+    width: $day_block_width_desktop * 7 + 10px* 14;
+    margin: auto;
+    position: relative;
+}
+
+.calendar_content {
+    width: $day_block_width_desktop * 7 + 10px* 14;
+    margin: auto;
+    left: auto;
+    right: auto;
+    //position: absolute;
+
+}
+
+.calendar_content_prev, .calendar_content_next {
+    position: relative;
+    top: -100%;
+    width: auto;
+    margin: auto;
+    z-index: -1;
+}
+
+.calendar_content_prev {
+    animation: calendar_content_sliding_right_animation 0.3s;
+}
+
+.calendar_content_next {
+    animation: calendar_content_sliding_left_animation 0.3s;
+}
+
+.calendar_content_appear {
+    animation: calendar_content_appearing_animation 0.3s;
+}
+
+.calendar_day {
+    width: $day_block_width_desktop;
+    display: inline-block;
+    margin: 10px 10px;
+}
+
+@media (max-width: 1023px) {
+    .calendar_day {
+        width: $day_block_width_tablet;
+    }
+
+    .calendar_content_container, .calendar_content {
+        width: $day_block_width_tablet * 7 + 10px* 14;
+    }
+}
+
+@media (max-width: 767px) {
+    .calendar_day {
+        width: $day_block_width_mobile;
+    }
+
+    .calendar_content_container, .calendar_content {
+        width: $day_block_width_mobile * 7 + 10px* 14;
+    }
 }

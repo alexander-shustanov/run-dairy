@@ -5,27 +5,30 @@
 'use strict';
 
 import React from 'react';
+import Calendar from './CalendarView';
 
 function AppView(props) {
     const noRecords = props.records.size == 0;
     const recordsList = noRecords ? "No records" : props.records.size;
 
+    //{/*<NewRecord*/}
+      //  {/*onEditDraft={props.editDraft}*/}
+        //{/*onDone={props.addRecord}*/}
+        //{/*draft={props.draftRecord}*/}
+    // />
+    // {[...props.records.values()].map(
+    //     record => (
+    //         <RecordView
+    //             distance={record.distance}
+    //             key={record.id}
+    //         />
+    //     ))}
+
     return (
         <div>
             <NavBar {...props} />
             <div className="paper">
-                <NewRecord
-                    onEditDraft={props.editDraft}
-                    onDone={props.addRecord}
-                    draft={props.draftRecord}
-                />
-                {[...props.records.values()].map(
-                    record => (
-                        <RecordView
-                            distance={record.distance}
-                            key={record.id}
-                        />
-                    ))}
+                <Calendar {...props}/>
             </div>
             <NewRecordFab />
         </div>
