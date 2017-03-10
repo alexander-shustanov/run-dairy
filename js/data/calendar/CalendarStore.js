@@ -22,14 +22,14 @@ class CalendarStore extends ReduceStore {
     reduce(state, action) {
         switch (action.type) {
             case CalendarActionTypes.NEXT: {
-                let newDate = new Date(state.date.getTime());
+                let newDate = new Date(state.date);
                 newDate.setMonth(newDate.getMonth() + 1);
-                return state.set("date", newDate).set("isNext", true).set("isPrev", false);
+                return state.set("date", newDate.getTime()).set("isNext", true).set("isPrev", false);
             }
             case CalendarActionTypes.PREV: {
-                let newDate = new Date(state.date.getTime());
+                let newDate = new Date(state.date);
                 newDate.setMonth(newDate.getMonth() - 1);
-                return state.set("date", newDate).set("isNext", false).set("isPrev", true);
+                return state.set("date", newDate.getTime()).set("isNext", false).set("isPrev", true);
             }
             case CalendarActionTypes.FIX:
                 return state.set("isNext", false).set("isPrev", false);

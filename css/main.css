@@ -73,7 +73,7 @@
 
 #calendar_header {
   margin: auto;
-  width: 240px;
+  width: 270px;
   position: relative; }
 
 #calendar_header h1 {
@@ -105,23 +105,13 @@
   border-width: 7.5px 0 7.5px 10px;
   border-color: transparent transparent transparent #a09fa0; }
 
-.calendar_content_container {
+.calendar_content {
   width: 840px;
   margin: auto;
   position: relative; }
 
-.calendar_content {
-  width: 840px;
-  margin: auto;
-  left: auto;
-  right: auto; }
-
 .calendar_content_prev, .calendar_content_next {
-  position: relative;
-  top: -100%;
-  width: auto;
-  margin: auto;
-  z-index: -1; }
+  opacity: 0; }
 
 .calendar_content_prev {
   animation: calendar_content_sliding_right_animation 0.3s; }
@@ -141,13 +131,15 @@
   .calendar_day {
     width: 80px; }
 
-  .calendar_content_container, .calendar_content {
+  .calendar_content_container,
+  .calendar_content {
     width: 700px; } }
 @media (max-width: 767px) {
   .calendar_day {
     width: 15px; }
 
-  .calendar_content_container, .calendar_content {
+  .calendar_content_container,
+  .calendar_content {
     width: 245px; } }
 
 /*# sourceMappingURL=main.css.map */

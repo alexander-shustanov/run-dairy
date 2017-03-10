@@ -6,11 +6,25 @@
 
 import React from 'react';
 
+const months = ["January", "February", "Mart", "April", "May", "June", "July", "August","September", "October", "November", "December"];
+
 function MonthView(props) {
+    let calendarState = props.calendar;
+
     let days = [];
     let days_count = 31;
     for (let i = 1; i <= days_count; i++) {
         days = days.concat(i);
+    }
+
+    let date = new Date(calendarState.date);
+    let month = date.getMonth();
+    let firstDay = date.setDate(1);
+    let dayOfTheWeek = date.getDay();
+
+    let fakeDays = [];
+    for (let i = 1; i < dayOfTheWeek; i++) {
+        fakeDays.push(<div className="calendar_day"/>);
     }
 
 
@@ -26,6 +40,7 @@ function MonthView(props) {
     }
     return (
         <div className={classes}>
+            {fakeDays}
             {days.map(i => (<div className="calendar_day" key={i}>{i}</div>))}
         </div>
     );
@@ -33,26 +48,26 @@ function MonthView(props) {
 
 function Calendar(props) {
     let calendarState = props.calendar;
+    let date = new Date(calendarState.date);
+    let month = months[date.getMonth()] + " " + (1900 + date.getYear());
+
+    let fixDelayed = () => setTimeout(calendarState.fix, 400);
 
     let contents = [];
     if (calendarState.isPrev) {
-        contents = contents.concat(<MonthView appearence={true} calendar={calendarState}/>);
         contents = contents.concat(<MonthView prev={true} calendar={calendarState}/>);
+        fixDelayed();
     } else if (calendarState.isNext) {
-        contents = contents.concat(<MonthView appearence={true} calendar={calendarState}/>);
         contents = contents.concat(<MonthView next={true} calendar={calendarState}/>);
+        fixDelayed();
     } else {
-        contents = contents.concat(<MonthView calendar={calendarState}/>);
-    }
-
-    if (contents.length > 1) {
-        setTimeout(calendarState.fix, 300);
+        contents = contents.concat(<MonthView appearence={true} calendar={calendarState}/>);
     }
 
     return (
         <div id="calendar">
             <div id="calendar_header">
-                <h1>Mart</h1>
+                <h1>{month}</h1>
                 <div id="calendar_header_left" onClick={calendarState.prev}/>
                 <div id="calendar_header_right" onClick={calendarState.next}/>
             </div>

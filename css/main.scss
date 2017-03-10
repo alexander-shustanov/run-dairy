@@ -140,7 +140,7 @@ $day_block_width_mobile: 15px;
 
 #calendar_header {
     margin: auto;
-    width: 240px;
+    width: 270px;
     position: relative;
 }
 
@@ -153,7 +153,6 @@ $day_block_width_mobile: 15px;
     line-height: 50px;
     font-weight: 100;
     letter-spacing: 1px;
-    //display: inline;
 }
 
 #calendar_header_left, #calendar_header_right {
@@ -180,26 +179,18 @@ $day_block_width_mobile: 15px;
 }
 
 .calendar_content_container {
-    width: $day_block_width_desktop * 7 + 10px* 14;
-    margin: auto;
-    position: relative;
+
 }
 
 .calendar_content {
     width: $day_block_width_desktop * 7 + 10px* 14;
     margin: auto;
-    left: auto;
-    right: auto;
-    //position: absolute;
+    position: relative;
 
 }
 
 .calendar_content_prev, .calendar_content_next {
-    position: relative;
-    top: -100%;
-    width: auto;
-    margin: auto;
-    z-index: -1;
+    opacity: 0;
 }
 
 .calendar_content_prev {
@@ -225,7 +216,9 @@ $day_block_width_mobile: 15px;
         width: $day_block_width_tablet;
     }
 
-    .calendar_content_container, .calendar_content {
+    .calendar_content_container,
+    .calendar_content
+    {
         width: $day_block_width_tablet * 7 + 10px* 14;
     }
 }
@@ -235,7 +228,9 @@ $day_block_width_mobile: 15px;
         width: $day_block_width_mobile;
     }
 
-    .calendar_content_container, .calendar_content {
+    .calendar_content_container,
+    .calendar_content
+    {
         width: $day_block_width_mobile * 7 + 10px* 14;
     }
 }

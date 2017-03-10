@@ -6,7 +6,7 @@ import Immutable from 'immutable';
 import CalendarActions from './CalendarActions';
 
 const CalendarState = Immutable.Record({
-    date: new Date(),
+    date: Date.now(),
     isPrev: false,
     isNext: false,
 
