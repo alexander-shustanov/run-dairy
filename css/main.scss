@@ -234,3 +234,22 @@ $day_block_width_mobile: 15px;
         width: $day_block_width_mobile * 7 + 10px* 14;
     }
 }
+
+.flat_button {
+    border: none;
+    border-radius: 2px;
+    display: inline-block;
+    height: 36px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    text-align: center;
+    background-color: white;
+    transition: 0.3s;
+    cursor: pointer;
+    box-shadow: none;
+
+    &:hover {
+        transition: 0.3s;
+        background-color: #e5e4e5;
+    }
+}

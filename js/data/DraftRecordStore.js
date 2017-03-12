@@ -25,7 +25,8 @@ class RecordStore extends ReduceStore {
             case RecordActionTypes.ADD_RECORD:
                 return this.getInitialState();
             case RecordActionTypes.UPDATE_DRAFT_RECORD:
-                return state.set("distance", action.distance);
+                alert(action.record.date);
+                return action.record;
             default:
                 return state;
         }

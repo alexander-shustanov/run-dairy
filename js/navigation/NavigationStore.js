@@ -3,9 +3,10 @@
  */
 
 import {ReduceStore} from 'flux/utils';
-import Dispatcher from './RecordDispatcher';
+import Dispatcher from '../data/RecordDispatcher';
 import Immutable from 'immutable';
-import NavigatoinActionTypes from './NavigationActionTypes';
+import NavigationActionTypes from './NavigationActionTypes';
+import NavigationRoutes from './NavigationRoutes';
 
 class NavigationStore extends ReduceStore {
     constructor() {
@@ -13,7 +14,20 @@ class NavigationStore extends ReduceStore {
     }
 
     getInitialState() {
-        return "Calendar";
+        return Immutable.Stack([NavigationRoutes.CALENDAR]);
+    }
+
+    reduce(state, action) {
+        switch (action.type) {
+            case NavigationActionTypes.GOTO:
+                return state.push(action.route);
+            case NavigationActionTypes.BACK:
+                return state.pop();
+            case NavigationActionTypes.REPLACE:
+                return state.pop().push(action.route);
+            default:
+                return state;
+        }
     }
 
 }

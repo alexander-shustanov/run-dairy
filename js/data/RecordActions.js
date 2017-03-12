@@ -19,10 +19,10 @@ const Actions = {
             id
         });
     },
-    editRecordDraft(distance) {
+    editRecordDraft(record) {
         Dispatcher.dispatch({
             type: RecordActionTypes.UPDATE_DRAFT_RECORD,
-            distance
+            record
         });
     }
 };

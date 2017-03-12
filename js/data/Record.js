@@ -7,7 +7,7 @@ import Immutable from 'immutable';
 
 const Record = Immutable.Record({
     id: '',
-    datetime: null,
+    date: null,
     distance: 0,
     weather: null,
     photos: null,

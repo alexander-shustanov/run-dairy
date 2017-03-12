@@ -5,9 +5,24 @@
 'use strict';
 
 import React from 'react';
+import NavigationRoutes from '../navigation/NavigationRoutes';
 import Calendar from './CalendarView';
+import NavigationActions from '../navigation/NavigationActions';
+import NewRecordForm from './NewRecordForm';
 
 function AppView(props) {
+
+    let curView;
+
+    switch(props.route) {
+        case NavigationRoutes.CALENDAR:
+            curView = <Calendar {...props}/>;
+            break;
+        case NavigationRoutes.RUN_CREATION_FORM:
+            curView = <NewRecordForm {...props}/>
+            break;
+    }
+
     const noRecords = props.records.size == 0;
     const recordsList = noRecords ? "No records" : props.records.size;
 
@@ -28,7 +43,7 @@ function AppView(props) {
         <div>
             <NavBar {...props} />
             <div className="paper">
-                <Calendar {...props}/>
+                {curView}
             </div>
             <NewRecordFab />
         </div>
@@ -42,8 +57,10 @@ function NavBar(props) {
 }
 
 function NewRecordFab() {
+    let openCreationForm = () => NavigationActions.goto(NavigationRoutes.RUN_CREATION_FORM);
+
     return (
-        <div id="add_record_fab"/>
+        <div id="add_record_fab" onClick={openCreationForm}/>
     );
 }
 

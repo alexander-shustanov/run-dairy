@@ -141,5 +141,20 @@
   .calendar_content_container,
   .calendar_content {
     width: 245px; } }
+.flat_button {
+  border: none;
+  border-radius: 2px;
+  display: inline-block;
+  height: 36px;
+  text-transform: uppercase;
+  vertical-align: middle;
+  text-align: center;
+  background-color: white;
+  transition: 0.3s;
+  cursor: pointer;
+  box-shadow: none; }
+  .flat_button:hover {
+    transition: 0.3s;
+    background-color: #e5e4e5; }
 
 /*# sourceMappingURL=main.css.map */
