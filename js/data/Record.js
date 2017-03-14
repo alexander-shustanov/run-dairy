@@ -4,12 +4,14 @@
 'use strict';
 
 import Immutable from 'immutable';
+import Weather from './Weather';
 
 const Record = Immutable.Record({
     id: '',
     date: null,
-    distance: 0,
-    weather: null,
+    distance: null,
+    weather: new Weather(),
+    difficulty: 1,
     photos: null,
     track: null
 });
