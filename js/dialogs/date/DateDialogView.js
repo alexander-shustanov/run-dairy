@@ -20,6 +20,11 @@ function monthFirstDayOffset(date) {
 
 function DateDialog(props) {
 
+    let chooseDate = (date) => {
+        props.onDateChanged(date);
+        DateDialogActions.chooseDate(date);
+    };
+
     let availableYear = [];
 
     for(let i = 2007;i<=new Date().getFullYear();i++) {
@@ -36,7 +41,13 @@ function DateDialog(props) {
     let yearChanged = (event) => DateDialogActions.changeCurDate(curDate.setFullYear(parseInt(event.target.value)));
     let nextMonth = () => DateDialogActions.changeCurDate(curDate.setMonth(curDate.getMonth()+1));
     let prevMonth = () => DateDialogActions.changeCurDate(curDate.setMonth(curDate.getMonth()-1));
-    let today = () => DateDialogActions.chooseDate(new Date());
+    let today = () => chooseDate(new Date());
+    let clear = () => {
+        chooseDate(null);
+        DateDialogActions.toggle();
+    };
+
+
 
     let tableDays = [];
     let firstDayOffset = monthFirstDayOffset(curDate);
@@ -72,13 +83,13 @@ function DateDialog(props) {
                         <tbody>
                         {tableDays.map(week => <tr>{week.map(d => <td><div
                             className={"date_dialog_picker_table_item " + (isSelectedDay(d) ? "date_dialog_picker_table_item_selected" : "")}
-                            onClick={() => DateDialogActions.chooseDate(new Date(curDate.getFullYear(), curDate.getMonth(), d))}>{d}</div></td>)}</tr>)}
+                            onClick={() => chooseDate(new Date(curDate.getFullYear(), curDate.getMonth(), d))}>{d}</div></td>)}</tr>)}
                         </tbody>
                     </table>
                 </div>
                 <div className="date_dialog_footer">
                     <button type='button' className="flat_button date_dialog_today" onClick={today}>Today</button>
-                    <button type='button' className="flat_button">Clear</button>
+                    <button type='button' className="flat_button" onClick={clear}>Clear</button>
                     <button type='button' className="flat_button date_dialog_close" onClick={DateDialogActions.toggle}>Close</button>
                 </div>
             </div>

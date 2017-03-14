@@ -1,0 +1,111 @@
+$focus_color: #337ab7;
+$transition-speed: 0.3s;
+$border_color: #999 !default;
+$text_color: #373737;
+
+.flat_button {
+    border: none;
+    border-radius: 2px;
+    display: inline-block;
+    height: 36px;
+    text-transform: uppercase;
+    vertical-align: middle;
+    text-align: center;
+    background-color: white;
+    transition: 0.3s;
+    cursor: pointer;
+    box-shadow: none;
+
+    &:hover {
+        transition: 0.3s;
+        background-color: #e5e4e5;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.form_group {
+
+    position: relative;
+
+    @mixin hint_label_active {
+        top: -0.5em;
+        font-size: 0.7em;
+        color: $focus_color;
+    }
+
+    @mixin highlighting_bar_active {
+        width: 100%;
+        left: 0;
+    }
+
+
+    input {
+        display: block;
+        background: none;
+        border: 0 transparent;
+        line-height: 1.9;
+        width: 100%;
+        color: $text_color;
+
+        transition: all $transition-speed ease;
+        box-shadow: none;
+
+        &:focus {
+            outline: none;
+
+            ~ .highlight_bar {
+                &::before {
+                    @include highlighting_bar_active;
+                }
+            }
+
+            ~ .hint_label {
+                @include hint_label_active;
+
+            }
+        }
+    }
+
+    .hint_label {
+        color: $border_color;
+        position: absolute;
+        top: 0em;
+        transition: all $transition-speed ease;
+    }
+
+    .hint_label_active {
+        @include hint_label_active;
+    }
+
+    .hint_label_not_empty {
+        @include hint_label_active;
+        color: $border_color;
+    }
+
+    .highlight_bar {
+        position: relative;
+        border-bottom: 0.1em solid $border_color;
+        display: block;
+
+        &::before {
+            content: '';
+            height: 0.1em;
+            width: 0;
+            left: 50%;
+            top: -0.05em;
+            position: absolute;
+            background: $focus_color;
+            transition: left $transition-speed ease, width $transition-speed ease;
+            z-index: 2;
+        }
+    }
+
+    .highlight_bar_active {
+        &::before {
+            @include highlighting_bar_active;
+        }
+    }
+}

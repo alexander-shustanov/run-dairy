@@ -28,6 +28,7 @@ $date_dialog_buttons_width: $dialog_width / 3 - 4px;
     bottom: 0;
     left: 0;
     width: $dialog_width;
+    z-index: 10000;
 }
 
 .date_dialog_header {
@@ -125,12 +126,20 @@ $date_dialog_buttons_width: $dialog_width / 3 - 4px;
     height: 40px;
     display:table-cell;
     vertical-align:middle;
+
+    &:hover {
+        color: black;
+    }
 }
 
 .date_dialog_picker_table_item_selected {
     background-color: $main_color;
     border-radius: 50%;
     color: #fff;
+
+    &:hover {
+        color: #fff;
+    }
 }
 
 
