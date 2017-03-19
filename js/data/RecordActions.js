@@ -24,6 +24,11 @@ const Actions = {
             type: RecordActionTypes.UPDATE_DRAFT_RECORD,
             record
         });
+    },
+    showError() {
+        Dispatcher.dispatch({
+            type: RecordActionTypes.SHOW_ERROR
+        });
     }
 };
 

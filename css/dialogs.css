@@ -126,4 +126,7 @@
 .date_dialog_today, .date_dialog_close {
   color: #26a69a; }
 
+.flat_button_date_dialog:focus {
+  background-color: #87f3e5; }
+
 /*# sourceMappingURL=dialogs.css.map */

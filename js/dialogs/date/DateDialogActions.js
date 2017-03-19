@@ -23,6 +23,13 @@ const Actions = {
             type: ActionTypes.DATE_DIALOG_TOGGLE
         });
     }
+    ,
+    toggle(date) {
+        Dispatcher.dispatch({
+            type: ActionTypes.DATE_DIALOG_TOGGLE,
+            date
+        });
+    }
 };
 
 export default Actions;

@@ -9,6 +9,7 @@ import Weather from './Weather';
 const Record = Immutable.Record({
     id: '',
     date: null,
+    time: null,
     distance: null,
     weather: new Weather(),
     difficulty: 1,

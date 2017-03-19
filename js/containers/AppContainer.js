@@ -19,7 +19,9 @@ function getStores() {
 function getStates() {
     return {
         records: RecordStore.getState(),
-        draftRecord: DraftRecordStore.getState(),
+        draftRecord: DraftRecordStore.getState().record,
+        validator: DraftRecordStore.getState().validator,
+        withError: DraftRecordStore.getState().showError,
         route: NavigationStore.getState().peek(),
         calendar: CalendarStore.getState(),
         dialogs: {
@@ -28,6 +30,7 @@ function getStates() {
 
         editDraft: RecordActions.editRecordDraft,
         addRecord: RecordActions.addRecord,
+        showError: RecordActions.showError,
         goto: NavigationActions.goto,
         back: NavigationActions.back,
         replaceRoute: NavigationActions.replace

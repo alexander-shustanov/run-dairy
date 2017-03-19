@@ -24,7 +24,11 @@ class DateDialogStore extends ReduceStore {
                 return state.set("curMonth", action.date);
             }
             case ActionTypes.DATE_DIALOG_TOGGLE:
-                return new DateDialogState().set("visible", !(state.visible));
+                let newState = new DateDialogState().set("visible", !(state.visible));
+                if(!action.date)
+                    return newState;
+                else
+                    return newState.set("curMonth", action.date).set("chosenDate", action.date);
             default:
                 return state;
         }

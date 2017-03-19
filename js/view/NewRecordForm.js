@@ -12,13 +12,14 @@ import RecordActions from '../data/RecordActions';
 const months = ["January", "February", "Mart", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 function DateInput(props) {
+    let date = props.draftRecord.date;
+
     let dateDialogState = props.dialogs.date;
     let dateDialogVisible = dateDialogState.visible;
-    let toggleDialog = () => DateDialogActions.toggle();
+    let toggleDialog = () => DateDialogActions.toggle(date);
+
     let dateDialogMayBe = dateDialogVisible ? (<DateDialogView dateDialogState={dateDialogState}
                                                                onDateChanged={(date) => props.editDraft(props.draftRecord.set("date", date))}/>) : [];
-
-    let date = props.draftRecord.date;
 
     let labelClasses = ["hint_label"];
     let highlightingBarClasses = ["highlight_bar"];
@@ -29,15 +30,20 @@ function DateInput(props) {
         labelClasses.push("hint_label_not_empty");
     }
 
+    if(props.withError && !props.validator("date", date)) {
+        labelClasses.push("hint_label_error");
+        highlightingBarClasses.push("highlight_bar_error");
+    }
+
     let textDate = !date ? "" : (date.getDate() + " " + months[date.getMonth()] + ", " + date.getFullYear());
 
     return (
         <div className="date_form">
             <div className="form_group">
-                <input type="text" className="date_dialog_input_target" readOnly="readOnly" onClick={toggleDialog}
+                <input type="text" className="date_dialog_input_target" readOnly="readOnly" onClick={toggleDialog} onFocus={toggleDialog}
                        value={textDate} required="required"/>
                 <label className={labelClasses.join(" ")} onClick={toggleDialog}>Date</label>
-                <i className={highlightingBarClasses.join(" ")} onClick={toggleDialog}/>
+                <i className={highlightingBarClasses.join(" ")} onClick={toggleDialog} />
             </div>
             {dateDialogMayBe}
         </div>
@@ -46,8 +52,14 @@ function DateInput(props) {
 
 function TextInput(props) {
     let labelClasses = ["hint_label"];
+    let highlightBarClasses = ["highlight_bar"];
     if (props.value) {
         labelClasses.push("hint_label_not_empty");
+    }
+
+    if(props.showError && !props.validator(props.value)) {
+        labelClasses.push("hint_label_error");
+        highlightBarClasses.push("highlight_bar_error");
     }
 
     let onChange = (event) => {
@@ -70,7 +82,7 @@ function TextInput(props) {
         <div className="form_group">
             <input type={props.type} value={props.value ? props.value : ""} onChange={onChange}/>
             <label className={labelClasses.join(" ")}>{props.name}</label>
-            <i className="highlight_bar"/>
+            <i className={highlightBarClasses.join(" ")}/>
         </div>
     );
 }
@@ -112,22 +124,48 @@ function Rating(props) {
 function NewRecordForm(props) {
     let record = props.draftRecord;
     let weather = record.weather;
+
+    let validate = props.validator;
+
+    let allGood = validate("time", record.time) && validate("date", record.date);
+
+    let createRecord = () => {
+        if(allGood) {
+            props.addRecord(record);
+            props.back();
+        } else {
+            props.showError();
+        }
+    };
+
     return (
         <form className="new_record_form">
+
+            <h2>Create new run record</h2>
+
             <DateInput {...props}/>
             <TextInput
                 type="number"
-                name="Distance, km"
-                value={record.distance}
-                onChange={distance => props.editDraft(record.set("distance", distance))}
+                name="Time, minutes"
+                value={record.time}
+                onChange={time => props.editDraft(record.set("time", time))}
+                validator={props.validator.bind(null, "time")}
+                showError={props.withError}
                 min={0}
-                max={42}
-                digitsAfterZero={3}
+                digitsAfterZero={0}
+            />
+            <Spinner
+                onChange={distance => props.editDraft(record.set("distance", distance))}
+                value={record.distance}
+                opts={[1,5, 10,21,42]}
+                name="Distance, km"
             />
             <TextInput
                 type="number"
                 name="Temperature, °C"
                 value={weather.temperature}
+                validator={props.validator.bind(null, "temperature")}
+                showError={props.withError}
                 onChange={temperature => props.editDraft(record.set("weather", weather.set("temperature", temperature)))}
                 min={-273}
                 digitsAfterZero={1}
@@ -136,6 +174,8 @@ function NewRecordForm(props) {
                 type="number"
                 name="Humidity, %"
                 value={weather.humidity}
+                validator={props.validator.bind(null, "humidity")}
+                showError={props.withError}
                 onChange={humidity => props.editDraft(record.set("weather", weather.set("humidity", humidity)))}
                 min={0}
                 max={100}
@@ -150,8 +190,11 @@ function NewRecordForm(props) {
             <Rating
                 name="Difficulty"
                 value={record.difficulty}
+                validator={props.validator}
+                showError={props.withError}
                 onSelect={dif => props.editDraft(record.set("difficulty", dif))}
             />
+            <button className="raised_button" type="button" onClick={createRecord}><span/>create</button>
 
         </form>
     );

@@ -75,8 +75,14 @@ $day_block_width_mobile: 15px;
 
 .paper {
     @include elevation(1);
-    margin: 1em;
     margin-top: $nav_bar_height - 1em;
+    margin: 1em;
+
+    @media (min-width: 1023px) {
+        margin: 20em;
+        margin-top: $nav_bar_height - 1em;
+    }
+
     padding: 1em;
     padding-top: 2em;
     border-radius: 0.2em;
