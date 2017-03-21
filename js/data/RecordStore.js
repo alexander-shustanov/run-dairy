@@ -9,6 +9,7 @@ import RecordDispatcher from './RecordDispatcher';
 import Immutable from 'immutable';
 import RecordActionTypes from './RecordActionTypes';
 import Record from './Record';
+import Weather from './Weather';
 import RecordCounter from './RecordCounter';
 
 class RecordStore extends ReduceStore {
@@ -21,7 +22,7 @@ class RecordStore extends ReduceStore {
         if (localStorage.recordStore) {
             JSON
                 .parse(localStorage.recordStore)
-                .map(record => new Record(record))
+                .map(record => new Record(record).set("weather", new Weather(record.weather)))
                 .forEach(record => state.val = state.val.set(record.id, record));
         }
         return state.val;
@@ -31,31 +32,42 @@ class RecordStore extends ReduceStore {
         switch (action.type) {
             case RecordActionTypes.ADD_RECORD:
                 const id = RecordCounter.increment();
-                return this.save(
+                return RecordStore.save(
                     state.set(id, action.record.set("id", id))
                 );
             case RecordActionTypes.DELETE_RECORD:
-                return this.save(state.remove(action.id));
+                return RecordStore.save(state.remove(action.id));
             default:
                 return state;
         }
     }
 
-    save(state) {
+    static save(state) {
         localStorage.recordStore = JSON
             .stringify(Array.from(state.values())
-                .map(record => {
-                    return {
-                        id: record.id,
-                        datetime: record.datetime,
-                        distance: record.distance,
-                        weather: record.weather,
-                        photos: record.photos,
-                        track: record.track
-                    }
-                })
+                .map(RecordStore.recordToJs)
             );
         return state;
+    }
+
+    static recordToJs(record) {
+        return {
+            id: record.id,
+            date: record.date,
+            time: record.time,
+            distance: record.distance,
+            weather: RecordStore.weatherToJs(record.weather),
+            photos: record.photos,
+            track: record.track
+        }
+    }
+
+    static weatherToJs(weather) {
+        return {
+            temperature: weather.temperature,
+            humidity: weather.humidity,
+            precipitation: weather.precipitation
+        };
     }
 
 }

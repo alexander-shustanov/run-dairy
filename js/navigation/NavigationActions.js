@@ -7,16 +7,18 @@ import NavigationActionTypes from './NavigationActionTypes';
 import Dispatcher from '../data/RecordDispatcher';
 
 const Actions = {
-    goto(route) {
+    goto(route, params) {
         Dispatcher.dispatch({
             type: NavigationActionTypes.GOTO,
-            route
+            route,
+            params
         });
     },
-    replace(route) {
+    replace(route, params) {
         Dispatcher.dispatch({
             type: NavigationActionTypes.REPLACE,
-            route
+            route,
+            params
         });
     },
     back() {

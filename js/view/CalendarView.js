@@ -5,8 +5,10 @@
 'use strict';
 
 import React from 'react';
+import NavigationActions from '../navigation/NavigationActions';
+import NavigationRoutes from '../navigation/NavigationRoutes';
 
-const months = ["January", "February", "Mart", "April", "May", "June", "July", "August","September", "October", "November", "December"];
+const months = ["January", "February", "Mart", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
 function MonthView(props) {
     let calendarState = props.calendar;
@@ -19,14 +21,30 @@ function MonthView(props) {
 
     let date = new Date(calendarState.date);
     let month = date.getMonth();
+    let year = date.getFullYear();
     let firstDay = date.setDate(1);
     let dayOfTheWeek = date.getDay();
+
+    let daysWithRecords = Array
+        .from(props.records.values())
+        .map(record => new Date(record.date))
+        .filter(date => date.getFullYear() == year && date.getMonth() == month)
+        .map(date => date.getDate());
+
+    let openDay = (day) => {
+        if(daysWithRecords.indexOf(day) != -1) {
+            let date = new Date();
+            date.setFullYear(year);
+            date.setMonth(month);
+            date.setDate(day);
+            NavigationActions.goto(NavigationRoutes.DAY_LIST, date);
+        }
+    };
 
     let fakeDays = [];
     for (let i = 1; i < dayOfTheWeek; i++) {
         fakeDays.push(<div className="calendar_day"/>);
     }
-
 
     let classes = "calendar_content";
     if (props.prev) {
@@ -41,7 +59,7 @@ function MonthView(props) {
     return (
         <div className={classes}>
             {fakeDays}
-            {days.map(i => (<div className="calendar_day" key={i}>{i}</div>))}
+            {days.map(i => (<div className={"calendar_day" + (daysWithRecords.indexOf(i) != -1 ? " calendar_day_with_record" : "")} key={i}><div onClick={() => openDay(i)}>{i}</div></div>))}
         </div>
     );
 }
@@ -49,19 +67,19 @@ function MonthView(props) {
 function Calendar(props) {
     let calendarState = props.calendar;
     let date = new Date(calendarState.date);
-    let month = months[date.getMonth()] + " " + (1900 + date.getYear());
+    let month = months[date.getMonth()] + " " + date.getFullYear();
 
     let fixDelayed = () => setTimeout(calendarState.fix, 400);
 
     let contents = [];
     if (calendarState.isPrev) {
-        contents = contents.concat(<MonthView prev={true} calendar={calendarState}/>);
+        contents = contents.concat(<MonthView prev={true} calendar={calendarState} records={props.records}/>);
         fixDelayed();
     } else if (calendarState.isNext) {
-        contents = contents.concat(<MonthView next={true} calendar={calendarState}/>);
+        contents = contents.concat(<MonthView next={true} calendar={calendarState} records={props.records}/>);
         fixDelayed();
     } else {
-        contents = contents.concat(<MonthView appearence={true} calendar={calendarState}/>);
+        contents = contents.concat(<MonthView appearence={true} calendar={calendarState} records={props.records}/>);
     }
 
     return (

@@ -22,7 +22,8 @@ function getStates() {
         draftRecord: DraftRecordStore.getState().record,
         validator: DraftRecordStore.getState().validator,
         withError: DraftRecordStore.getState().showError,
-        route: NavigationStore.getState().peek(),
+        route: NavigationStore.getState().peek().route,
+        navigationParams: NavigationStore.getState().peek().params,
         calendar: CalendarStore.getState(),
         dialogs: {
             date: DateDialogStore.getState()

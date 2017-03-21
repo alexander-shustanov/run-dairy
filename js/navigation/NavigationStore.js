@@ -14,17 +14,17 @@ class NavigationStore extends ReduceStore {
     }
 
     getInitialState() {
-        return Immutable.Stack([NavigationRoutes.CALENDAR]);
+        return Immutable.Stack([{route: NavigationRoutes.CALENDAR, params: null}]);
     }
 
     reduce(state, action) {
         switch (action.type) {
             case NavigationActionTypes.GOTO:
-                return state.push(action.route);
+                return state.push({route:action.route, params: action.params});
             case NavigationActionTypes.BACK:
                 return state.pop();
             case NavigationActionTypes.REPLACE:
-                return state.pop().push(action.route);
+                return state.pop().push({route:action.route, params: action.params});
             default:
                 return state;
         }

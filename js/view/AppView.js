@@ -9,6 +9,7 @@ import NavigationRoutes from '../navigation/NavigationRoutes';
 import Calendar from './CalendarView';
 import NavigationActions from '../navigation/NavigationActions';
 import NewRecordForm from './NewRecordForm';
+import RecordList from './RecordList';
 
 function AppView(props) {
 
@@ -21,23 +22,12 @@ function AppView(props) {
         case NavigationRoutes.RUN_CREATION_FORM:
             curView = <NewRecordForm {...props}/>
             break;
+        case NavigationRoutes.DAY_LIST:
+            curView = <RecordList {...props}/>
+            break
     }
 
     const noRecords = props.records.size == 0;
-    const recordsList = noRecords ? "No records" : props.records.size;
-
-    //{/*<NewRecord*/}
-      //  {/*onEditDraft={props.editDraft}*/}
-        //{/*onDone={props.addRecord}*/}
-        //{/*draft={props.draftRecord}*/}
-    // />
-    // {[...props.records.values()].map(
-    //     record => (
-    //         <RecordView
-    //             distance={record.distance}
-    //             key={record.id}
-    //         />
-    //     ))}
 
     return (
         <div>
@@ -45,7 +35,9 @@ function AppView(props) {
             <div className="paper">
                 {curView}
             </div>
-            <NewRecordFab />
+            <div id="fab_container">
+                <NewRecordFab />
+            </div>
         </div>
     );
 }
@@ -69,30 +61,6 @@ function RecordView(props) {
         <div className="record_item">
             <label>{props.distance}</label>
         </div>
-    );
-}
-
-
-const ENTER_KEY_CODE = 13;
-function NewRecord(props) {
-    const onChange = (event) => props.onEditDraft(event.target.value);
-    const addRecord = () => props.onDone(props.draft);
-    const onBlur = () => addRecord();
-    const onKeyDown = (event) => {
-        if (event.keyCode === ENTER_KEY_CODE) {
-            addRecord();
-        }
-    };
-
-    return (
-        <input
-            autoFocus={true}
-            id="new_record"
-            placeholder="What needs to be done?"
-            value={props.draft.distance}
-            onChange={onChange}
-            onKeyDown={onKeyDown}
-        />
     );
 }
 

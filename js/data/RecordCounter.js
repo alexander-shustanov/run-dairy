@@ -11,8 +11,8 @@ let _counter = parseInt(localStorage.recordCounter);
 
 const RecordCounter = {
     increment() {
-        localStorage.recordCounter = _counter;
         _counter++;
+        localStorage.recordCounter = _counter;
         return 'id-' + String(_counter);
     },
 };

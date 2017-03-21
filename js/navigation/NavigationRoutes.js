@@ -6,7 +6,8 @@
 
 const NavigationRoutes = {
     CALENDAR: "CALENDAR",
-    RUN_CREATION_FORM: "RUN_CREATION_FORM"
+    RUN_CREATION_FORM: "RUN_CREATION_FORM",
+    DAY_LIST: "DAY_LIST"
 };
 
 export default NavigationRoutes;
