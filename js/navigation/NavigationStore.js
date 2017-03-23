@@ -22,7 +22,11 @@ class NavigationStore extends ReduceStore {
             case NavigationActionTypes.GOTO:
                 return state.push({route:action.route, params: action.params});
             case NavigationActionTypes.BACK:
-                return state.pop();
+                if(state.size > 1) {
+                    return state.pop();
+                } else {
+                    return state;
+                }
             case NavigationActionTypes.REPLACE:
                 return state.pop().push({route:action.route, params: action.params});
             default:
