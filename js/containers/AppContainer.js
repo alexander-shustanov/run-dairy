@@ -10,6 +10,7 @@ import RecordActions from '../data/RecordActions';
 import CalendarStore from '../data/calendar/CalendarStore';
 import NavigationStore from '../navigation/NavigationStore';
 import NavigationActions from '../navigation/NavigationActions';
+import NavigationRoutes from '../navigation/NavigationRoutes';
 import DateDialogStore from '../dialogs/date/DateDialogStore';
 
 function getStores() {
@@ -17,13 +18,15 @@ function getStores() {
 }
 
 function getStates() {
+    let route = NavigationStore.getState().peek().route;
+
     return {
         records: RecordStore.getState(),
         draftRecord: DraftRecordStore.getState().record,
         validator: DraftRecordStore.getState().validator,
         withError: DraftRecordStore.getState().showError,
-        route: NavigationStore.getState().peek().route,
-        showBack: NavigationStore.getState().size > 1,
+        route: route,
+        showBack: route != NavigationRoutes.CALENDAR && route != NavigationRoutes.COMPETITIONS && route != NavigationRoutes.STATISTICS,
         navigationParams: NavigationStore.getState().peek().params,
         calendar: CalendarStore.getState(),
         dialogs: {

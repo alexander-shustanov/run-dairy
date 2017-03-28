@@ -1,0 +1,124 @@
+.tab {
+  display: none;
+  z-index: -1;
+  height: 100%; }
+  .tab:nth-of-type(1):checked ~ .slide {
+    left: calc(100% / 3 * 0); }
+  .tab:nth-of-type(1):checked + .tab_label {
+    color: white; }
+  .tab:nth-of-type(1):active + .tab_label::before {
+    width: 140px;
+    height: 140px;
+    border-radius: 70px;
+    opacity: 0.5; }
+  .tab:nth-of-type(1):active + .tab_label::after {
+    width: 120px;
+    height: 120px;
+    opacity: 0.5; }
+  .tab:nth-of-type(1) + .tab_label_active::before {
+    width: 0;
+    height: 0;
+    transition: 0ms; }
+  .tab:nth-of-type(1) + .tab_label_active::after {
+    width: 120px;
+    height: 120px;
+    opacity: 0.5;
+    transition: 0ms; }
+  .tab:nth-of-type(2):checked ~ .slide {
+    left: calc(100% / 3 * 1); }
+  .tab:nth-of-type(2):checked + .tab_label {
+    color: white; }
+  .tab:nth-of-type(2):active + .tab_label::before {
+    width: 140px;
+    height: 140px;
+    border-radius: 70px;
+    opacity: 0.5; }
+  .tab:nth-of-type(2):active + .tab_label::after {
+    width: 120px;
+    height: 120px;
+    opacity: 0.5; }
+  .tab:nth-of-type(2) + .tab_label_active::before {
+    width: 0;
+    height: 0;
+    transition: 0ms; }
+  .tab:nth-of-type(2) + .tab_label_active::after {
+    width: 120px;
+    height: 120px;
+    opacity: 0.5;
+    transition: 0ms; }
+  .tab:nth-of-type(3):checked ~ .slide {
+    left: calc(100% / 3 * 2); }
+  .tab:nth-of-type(3):checked + .tab_label {
+    color: white; }
+  .tab:nth-of-type(3):active + .tab_label::before {
+    width: 140px;
+    height: 140px;
+    border-radius: 70px;
+    opacity: 0.5; }
+  .tab:nth-of-type(3):active + .tab_label::after {
+    width: 120px;
+    height: 120px;
+    opacity: 0.5; }
+  .tab:nth-of-type(3) + .tab_label_active::before {
+    width: 0;
+    height: 0;
+    transition: 0ms; }
+  .tab:nth-of-type(3) + .tab_label_active::after {
+    width: 120px;
+    height: 120px;
+    opacity: 0.5;
+    transition: 0ms; }
+
+.tab_label {
+  color: rgba(255, 255, 255, 0.82);
+  width: 120px;
+  display: inline-flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  height: 3em;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer; }
+  .tab_label::before, .tab_label::after {
+    content: "";
+    background: #ffffff;
+    opacity: 0.5;
+    width: 0;
+    height: 0;
+    transition: 500ms;
+    position: absolute;
+    overflow: hidden; }
+  .tab_label::after {
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 200px;
+    height: 200px; }
+
+.tabs_parent {
+  position: relative;
+  display: flex;
+  width: 360px;
+  overflow: hidden; }
+
+.slide {
+  height: 4px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #FF4081;
+  transition: left 200ms ease;
+  width: 120px; }
+
+@media (max-width: 767px) {
+  .tab_label {
+    width: 100px; }
+
+  .slide {
+    width: 100px; }
+
+  .tabs_parent {
+    width: 300px; } }
+
+/*# sourceMappingURL=tabs.css.map */

@@ -1,0 +1,120 @@
+$num-of-tabs: 3;
+$tab_width_normal: 120px;
+$tab_width_mobile: 100px;
+
+@mixin tabs {
+    @for $i from 1 through $num-of-tabs {
+        &:nth-of-type(#{$i}) {
+            &:checked {
+                ~ .slide {
+                    left: calc(100% / #{$num-of-tabs} * #{$i - 1});
+                }
+
+                + .tab_label {
+                    color: white;
+                }
+            }
+
+            &:active {
+                + .tab_label {
+                    &::before {
+                        width: 140px;
+                        height: 140px;
+                        border-radius: 70px;
+                        opacity: 0.5;
+                    }
+                    &::after {
+                        width: 120px;
+                        height: 120px;
+                        opacity: 0.5;
+                    }
+                }
+
+            }
+
+            + .tab_label_active {
+                &::before{
+                    width: 0;
+                    height: 0;
+                    transition: 0ms;
+                }
+                &::after {
+                    width: 120px;
+                    height: 120px;
+                    opacity: 0.5;
+                    transition: 0ms;
+                }
+            }
+        }
+    }
+}
+
+.tab {
+    @include tabs();
+    display: none;
+    z-index: -1;
+    height: 100%;
+}
+
+.tab_label {
+    color: rgba(255, 255, 255, 0.82);
+    width: $tab_width_normal;
+    display: inline-flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 3em;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    &::before,&::after {
+        content: "";
+        background: #ffffff;
+        opacity: 0.5;
+        width: 0;
+        height: 0;
+        transition: 500ms;
+        position: absolute;
+        overflow: hidden;
+    }
+
+    &::after {
+        top: 0;
+        left: 0;
+        opacity: 0;
+        width: 200px;
+        height: 200px;
+    }
+}
+
+
+.tabs_parent {
+    position: relative;
+    display: flex;
+    width: $tab_width_normal*$num-of-tabs;
+    overflow: hidden;
+}
+
+.slide {
+    height: 4px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #FF4081;
+    transition: left 200ms ease;
+    width: $tab_width_normal;
+}
+
+@media (max-width: 767px) {
+    .tab_label {
+        width: $tab_width_mobile;
+    }
+
+    .slide {
+        width: $tab_width_mobile;
+    }
+
+    .tabs_parent {
+        width: $tab_width_mobile * $num-of-tabs;
+    }
+}
