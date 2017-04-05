@@ -9,13 +9,14 @@ import DraftRecordStore from '../data/DraftRecordStore';
 import RecordActions from '../data/RecordActions';
 import CalendarStore from '../data/calendar/CalendarStore';
 import FileLoadingStore from '../data/fileloading/FileLoadingStore';
+import CompetitionStore from '../data/competition/CompetitionStore';
 import NavigationStore from '../navigation/NavigationStore';
 import NavigationActions from '../navigation/NavigationActions';
 import NavigationRoutes from '../navigation/NavigationRoutes';
 import DateDialogStore from '../dialogs/date/DateDialogStore';
 
 function getStores() {
-    return [RecordStore, DraftRecordStore, CalendarStore, NavigationStore, DateDialogStore, FileLoadingStore];
+    return [RecordStore, DraftRecordStore, CalendarStore, NavigationStore, DateDialogStore, FileLoadingStore, CompetitionStore];
 }
 
 function getStates() {

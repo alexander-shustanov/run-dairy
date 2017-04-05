@@ -1,0 +1,13 @@
+/**
+ * Created by alexander on 05.04.17.
+ */
+'use strict';
+
+const ActionTypes = {
+    ADD_COMPETITION: "ADD_COMPETITION",
+    DELETE_COMPETITION: "DELETE_COMPETITION",
+    UPDATE_DRAFT_COMPETITION: "UPDATE_DRAFT_COMPETITION",
+    SHOW_COMPETITION_ERROR: "SHOW_COMPETITION_ERROR"
+};
+
+export default ActionTypes;
