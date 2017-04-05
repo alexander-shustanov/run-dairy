@@ -48,14 +48,14 @@ function Toolbar(props) {
     let tabs = (
         <div className="tabs_parent">
             <input type="radio" className="tab" name="navigation_tabs"
-                   id="tab1" checked={props.route == NavigationRoutes.CALENDAR ? "checked" : ""} onClick={(event) => selectTab(event, NavigationRoutes.CALENDAR)}/>
-            <label className="tab_label" htmlFor="tab1">Calendar</label>
+                   id="tab1" checked={props.route == NavigationRoutes.CALENDAR ? "checked" : ""}/>
+            <label className="tab_label" htmlFor="tab1" onMouseUp={(event) => selectTab(event, NavigationRoutes.CALENDAR)}>Calendar</label>
             <input type="radio" className="tab" name="navigation_tabs"
-                   id="tab2" checked={props.route == NavigationRoutes.COMPETITIONS ? "checked" : ""} onClick={(event) => selectTab(event, NavigationRoutes.COMPETITIONS)}/>
-            <label className="tab_label" htmlFor="tab2">Competitions</label>
+                   id="tab2" checked={props.route == NavigationRoutes.COMPETITIONS ? "checked" : ""}/>
+            <label className="tab_label" htmlFor="tab2" onMouseUp={(event) => selectTab(event, NavigationRoutes.COMPETITIONS)}>Competitions</label>
             <input type="radio" className="tab" name="navigation_tabs"
-                   id="tab3" checked={props.route == NavigationRoutes.STATISTICS ? "checked" : ""} onClick={(event) => selectTab(event, NavigationRoutes.STATISTICS)}/>
-            <label className="tab_label" htmlFor="tab3">Statistics</label>
+                   id="tab3" checked={props.route == NavigationRoutes.STATISTICS ? "checked" : ""}/>
+            <label className="tab_label" htmlFor="tab3" onMouseUp={(event) => selectTab(event, NavigationRoutes.STATISTICS)}>Statistics</label>
             <div className="slide"/>
         </div>);
 

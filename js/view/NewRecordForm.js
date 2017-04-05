@@ -8,6 +8,8 @@ import React from 'react';
 import DateDialogActions from '../dialogs/date/DateDialogActions';
 import DateDialogView from '../dialogs/date/DateDialogView';
 import RecordActions from '../data/RecordActions';
+import FileLoadingActions from '../data/fileloading/FileLoadingActions';
+import Immutable from 'immutable';
 
 const months = ["January", "February", "Mart", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -30,7 +32,7 @@ function DateInput(props) {
         labelClasses.push("hint_label_not_empty");
     }
 
-    if(props.withError && !props.validator("date", date)) {
+    if (props.withError && !props.validator("date", date)) {
         labelClasses.push("hint_label_error");
         highlightingBarClasses.push("highlight_bar_error");
     }
@@ -40,10 +42,11 @@ function DateInput(props) {
     return (
         <div className="date_form">
             <div className="form_group">
-                <input type="text" className="date_dialog_input_target" readOnly="readOnly" onClick={toggleDialog} onFocus={toggleDialog}
+                <input type="text" className="date_dialog_input_target" readOnly="readOnly" onClick={toggleDialog}
+                       onFocus={toggleDialog}
                        value={textDate} required="required"/>
                 <label className={labelClasses.join(" ")} onClick={toggleDialog}>Date</label>
-                <i className={highlightingBarClasses.join(" ")} onClick={toggleDialog} />
+                <i className={highlightingBarClasses.join(" ")} onClick={toggleDialog}/>
             </div>
             {dateDialogMayBe}
         </div>
@@ -57,7 +60,7 @@ function TextInput(props) {
         labelClasses.push("hint_label_not_empty");
     }
 
-    if(props.showError && !props.validator(props.value)) {
+    if (props.showError && !props.validator(props.value)) {
         labelClasses.push("hint_label_error");
         highlightBarClasses.push("highlight_bar_error");
     }
@@ -98,8 +101,26 @@ function Spinner(props) {
     return (
         <div className="form_group">
             <select value={props.value ? props.value : ""} onChange={onChange}>
-                {props.opts.map(val => <option value={val} selected={val == props.value ? "selected" : ""}>{val}</option>)}
+                {props.opts.map(val => <option value={val}
+                                               selected={val == props.value ? "selected" : ""}>{val}</option>)}
             </select>
+            <label className={labelClasses.join(" ")}>{props.name}</label>
+            <i className="highlight_bar"/>
+        </div>
+    );
+}
+
+function FileInput(props) {
+    let labelClasses = ["hint_label hint_label_not_empty"];
+
+    let onChange = (event) => {
+        let files = event.target.files;
+        props.onChange(files);
+    };
+
+    return (
+        <div className="form_group">
+            <input type="file" multiple={props.multiple ? "multiple" : ""} onChange={onChange}/>
             <label className={labelClasses.join(" ")}>{props.name}</label>
             <i className="highlight_bar"/>
         </div>
@@ -112,7 +133,10 @@ function Rating(props) {
     return (
         <div className="form_group">
             <div className="stars_container">
-                {[1,2,3,4,5].map(i => <div className="star_container"><div className={props.value >= i ? "rating_star" : "rating_star_checked" } onClick={() => props.onSelect(i)}/></div>)}
+                {[1, 2, 3, 4, 5].map(i => <div className="star_container">
+                    <div className={props.value >= i ? "rating_star" : "rating_star_checked" }
+                         onClick={() => props.onSelect(i)}/>
+                </div>)}
             </div>
             <label className={labelClasses.join(" ")}>{props.name}</label>
         </div>
@@ -120,8 +144,10 @@ function Rating(props) {
 }
 
 
-
 function NewRecordForm(props) {
+    let loadingStates = props.files;
+    let photos = loadingStates.photos;
+
     let record = props.draftRecord;
     let weather = record.weather;
 
@@ -130,8 +156,8 @@ function NewRecordForm(props) {
     let allGood = validate("time", record.time) && validate("date", record.date);
 
     let createRecord = () => {
-        if(allGood) {
-            props.addRecord(record);
+        if (allGood) {
+            props.addRecord(record.set("photos", photos.map(container => container.content)));
             props.back();
         } else {
             props.showError();
@@ -157,7 +183,7 @@ function NewRecordForm(props) {
             <Spinner
                 onChange={distance => props.editDraft(record.set("distance", distance))}
                 value={record.distance}
-                opts={[1,5, 10,21,42]}
+                opts={[1, 5, 10, 21, 42]}
                 name="Distance, km"
             />
             <TextInput
@@ -184,7 +210,7 @@ function NewRecordForm(props) {
             <Spinner
                 onChange={precipitation => props.editDraft(record.set("weather", weather.set("precipitation", precipitation)))}
                 value={weather.precipitation}
-                opts={["Clear","Snow", "Rain"]}
+                opts={["Clear", "Snow", "Rain"]}
                 name="Precipitations"
             />
             <Rating
@@ -193,6 +219,12 @@ function NewRecordForm(props) {
                 validator={props.validator}
                 showError={props.withError}
                 onSelect={dif => props.editDraft(record.set("difficulty", dif))}
+            />
+            <FileInput
+                value={photos.map(container => container.file)}
+                name="Images"
+                multiple={true}
+                onChange={photos => FileLoadingActions.updateLoadFiles(photos)}
             />
             <button className="raised_button" type="button" onClick={createRecord}><span/>create</button>
 

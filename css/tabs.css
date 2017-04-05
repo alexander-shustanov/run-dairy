@@ -79,7 +79,8 @@
   height: 3em;
   overflow: hidden;
   position: relative;
-  cursor: pointer; }
+  cursor: pointer;
+  user-select: none; }
   .tab_label::before, .tab_label::after {
     content: "";
     background: #ffffff;

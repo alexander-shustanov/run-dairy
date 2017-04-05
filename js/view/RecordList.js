@@ -29,7 +29,7 @@ function RecordView(props) {
         <TextField name={"Distance"} value={record.distance + " km"}/>
         <TextField name={"Temperature"} value={weather.temperature + " °C"}/>
         <TextField name={"Humidity"} value={weather.humidity + " %"}/>
-        {/*<TextField name={"Date"} value={textDate}/>*/}
+        {record.photos.map(photo => <img src={photo}/>)}
     </div>;
 }
 

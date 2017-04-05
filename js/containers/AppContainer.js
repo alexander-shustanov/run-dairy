@@ -8,13 +8,14 @@ import RecordStore from '../data/RecordStore';
 import DraftRecordStore from '../data/DraftRecordStore';
 import RecordActions from '../data/RecordActions';
 import CalendarStore from '../data/calendar/CalendarStore';
+import FileLoadingStore from '../data/fileloading/FileLoadingStore';
 import NavigationStore from '../navigation/NavigationStore';
 import NavigationActions from '../navigation/NavigationActions';
 import NavigationRoutes from '../navigation/NavigationRoutes';
 import DateDialogStore from '../dialogs/date/DateDialogStore';
 
 function getStores() {
-    return [RecordStore, DraftRecordStore, CalendarStore, NavigationStore, DateDialogStore];
+    return [RecordStore, DraftRecordStore, CalendarStore, NavigationStore, DateDialogStore, FileLoadingStore];
 }
 
 function getStates() {
@@ -31,6 +32,9 @@ function getStates() {
         calendar: CalendarStore.getState(),
         dialogs: {
             date: DateDialogStore.getState()
+        },
+        files: {
+            photos: FileLoadingStore.getState().toJS()
         },
 
         editDraft: RecordActions.editRecordDraft,

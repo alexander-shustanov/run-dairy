@@ -13,8 +13,8 @@ const Record = Immutable.Record({
     distance: null,
     weather: new Weather(),
     difficulty: 1,
-    photos: null,
-    track: null
+    photos: Immutable.List(),
+    track: null,
 });
 
 export default Record;

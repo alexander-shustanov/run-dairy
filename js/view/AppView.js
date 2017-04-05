@@ -10,6 +10,8 @@ import Calendar from './CalendarView';
 import NavigationActions from '../navigation/NavigationActions';
 import NewRecordForm from './NewRecordForm';
 import RecordList from './RecordList';
+import StatisticsView from './StatisticsView';
+import CompetitionsMainView from './CompetitionsMainView';
 import Toolbar from './Toolbar';
 import DateUtils from '../data/DateUtils';
 
@@ -22,6 +24,12 @@ function AppView(props) {
         case NavigationRoutes.CALENDAR:
             curView = <Calendar {...props}/>;
             break;
+        case NavigationRoutes.STATISTICS:
+            curView = <StatisticsView {...props}/>;
+            break;
+        case NavigationRoutes.COMPETITIONS:
+            curView = <CompetitionsMainView {...props}/>;
+            break;
         case NavigationRoutes.RUN_CREATION_FORM:
             curView = <NewRecordForm {...props}/>;
             title = "New run record";
@@ -29,34 +37,18 @@ function AppView(props) {
         case NavigationRoutes.DAY_LIST:
             curView = <RecordList {...props}/>;
             title = "Runs at " + DateUtils.printDate(props.navigationParams);
-            break
+            break;
     }
-
-    const noRecords = props.records.size == 0;
 
     return (
         <div>
             <Toolbar route={props.route} showBack={props.showBack} title={title}/>
-            {/*<NavBar route={props.route} showBack={props.showBack}/>*/}
             <div className="paper">
                 {curView}
             </div>
             <div id="fab_container">
                 <NewRecordFab />
             </div>
-        </div>
-    );
-}
-
-function NavBar(props) {
-    let backButton = [];
-    if (props.showBack) {
-        backButton.push(<button className="back_button" type="button" onClick={NavigationActions.back}/>);
-    }
-
-    return (
-        <div id="nav_bar">
-            {backButton}
         </div>
     );
 }
