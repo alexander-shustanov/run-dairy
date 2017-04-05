@@ -20,19 +20,27 @@ function AppView(props) {
     let curView;
     let title;
 
+    let fabRoute = null;
+
     switch (props.route) {
         case NavigationRoutes.CALENDAR:
             curView = <Calendar {...props}/>;
+            fabRoute = NavigationRoutes.RUN_CREATION_FORM;
             break;
         case NavigationRoutes.STATISTICS:
             curView = <StatisticsView {...props}/>;
             break;
         case NavigationRoutes.COMPETITIONS:
             curView = <CompetitionsMainView {...props}/>;
+            fabRoute = NavigationRoutes.COMPETITION_CREATION_FORM;
             break;
         case NavigationRoutes.RUN_CREATION_FORM:
             curView = <NewRecordForm {...props}/>;
             title = "New run record";
+            break;
+        case NavigationRoutes.COMPETITION_CREATION_FORM:
+            curView = <div/>;
+            title = "New competition";
             break;
         case NavigationRoutes.DAY_LIST:
             curView = <RecordList {...props}/>;
@@ -40,24 +48,28 @@ function AppView(props) {
             break;
     }
 
+    let fab = (
+        <div id="fab_container">
+            <NewRecordFab route={fabRoute}/>
+        </div>
+    );
+
     return (
         <div>
             <Toolbar route={props.route} showBack={props.showBack} title={title}/>
             <div className="paper">
                 {curView}
             </div>
-            <div id="fab_container">
-                <NewRecordFab />
-            </div>
+            {fab}
         </div>
     );
 }
 
-function NewRecordFab() {
-    let openCreationForm = () => NavigationActions.goto(NavigationRoutes.RUN_CREATION_FORM);
+function NewRecordFab(props) {
+    let openCreationForm = props.route ? () => NavigationActions.goto(props.route) : () => {};
 
     return (
-        <div id="add_record_fab" onClick={openCreationForm}/>
+        <div onClick={openCreationForm} className={props.route ? "add_record_fab" : "add_record_fab add_record_fab_hide"}/>
     );
 }
 

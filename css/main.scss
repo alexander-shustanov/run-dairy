@@ -54,15 +54,15 @@ $day_block_height: 50px;
     left: 0;
 }
 
-#add_record_fab {
+.add_record_fab {
     background: $color_accent url("../img/add.svg") no-repeat center;
     width: $fab_size;
     height: $fab_size;
     position: fixed;
     right: 2em;
     bottom: 2em;
+    transition: 300ms;
     border-radius: 50%;
-    transition: 0.3s;
 
     @include elevation(2);
     &:hover {
@@ -72,6 +72,13 @@ $day_block_height: 50px;
         right: 2em - $fab_size*0.05;
         bottom: 2em - $fab_size*0.05;
         transition: 0.3s;
+    }
+}
+
+.add_record_fab_hide {
+    bottom: -8em;
+    &:hover {
+        bottom: -8em;
     }
 }
 
