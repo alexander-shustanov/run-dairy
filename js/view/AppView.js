@@ -9,6 +9,7 @@ import NavigationRoutes from '../navigation/NavigationRoutes';
 import Calendar from './CalendarView';
 import NavigationActions from '../navigation/NavigationActions';
 import NewRecordForm from './NewRecordForm';
+import NewCompetitionForm from './NewCompetitionForm';
 import RecordList from './RecordList';
 import StatisticsView from './StatisticsView';
 import CompetitionsMainView from './CompetitionsMainView';
@@ -39,7 +40,7 @@ function AppView(props) {
             title = "New run record";
             break;
         case NavigationRoutes.COMPETITION_CREATION_FORM:
-            curView = <div/>;
+            curView = <NewCompetitionForm {...props}/>;
             title = "New competition";
             break;
         case NavigationRoutes.DAY_LIST:
