@@ -14,9 +14,10 @@ import NavigationStore from '../navigation/NavigationStore';
 import NavigationActions from '../navigation/NavigationActions';
 import NavigationRoutes from '../navigation/NavigationRoutes';
 import DateDialogStore from '../dialogs/date/DateDialogStore';
+import CityStore from '../data/city/CityStore';
 
 function getStores() {
-    return [RecordStore, DraftRecordStore, CalendarStore, NavigationStore, DateDialogStore, FileLoadingStore, CompetitionStore];
+    return [RecordStore, DraftRecordStore, CalendarStore, NavigationStore, DateDialogStore, FileLoadingStore, CompetitionStore, CityStore];
 }
 
 function getStates() {
@@ -37,6 +38,10 @@ function getStates() {
         files: {
             photos: FileLoadingStore.getState().toJS()
         },
+        competitions: CompetitionStore.getState().competitions,
+        competitionDraft: CompetitionStore.getState().draft,
+        showCompetitionError: CompetitionStore.getState().showError,
+        cities: CityStore.getState().cities,
 
         editDraft: RecordActions.editRecordDraft,
         addRecord: RecordActions.addRecord,

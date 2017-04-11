@@ -19,7 +19,11 @@ function NewRecordForm(props) {
 
     let validate = props.validator;
 
-    let allGood = validate("time", record.time) && validate("date", record.date);
+    let allGood =
+        validate("time", record.time) &&
+        validate("date", record.date) &&
+        validate("humidity", weather.humidity) &&
+        validate("temperature", weather.temperature);
 
     let createRecord = () => {
         if (allGood) {

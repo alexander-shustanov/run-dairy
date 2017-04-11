@@ -43,7 +43,7 @@ class CompetitionStore extends ReduceStore {
                     .set("showError", false);
             case CompetitionActionTypes.UPDATE_DRAFT_COMPETITION:
                 return state.set("draft", action.competition);
-            case CompetitionActionTypes.SHOW_ERROR:
+            case CompetitionActionTypes.SHOW_COMPETITION_ERROR:
                 return state.set("showError", true);
             default:
                 return state;

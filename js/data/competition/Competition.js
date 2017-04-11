@@ -9,7 +9,8 @@ const Competition = Immutable.Record({
     id: '',
     date: null,
     result: null,
-    city: null
+    city: null,
+    time: null
 });
 
 export default Competition;
