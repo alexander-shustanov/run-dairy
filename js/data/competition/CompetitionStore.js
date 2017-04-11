@@ -25,7 +25,8 @@ class CompetitionStore extends ReduceStore {
             JSON
                 .parse(localStorage.competitionStore)
                 .map(competition => new Competition(competition))
-                .forEach(competition => state.competitions = state.competitions.set(competition.id, record));
+                .map(competition => competition.set("date", new Date(competition.date)))
+                .forEach(competition => state = state.set("competitions" , state.competitions.set(competition.id, competition)));
         }
         return state;
     }
@@ -37,10 +38,11 @@ class CompetitionStore extends ReduceStore {
                 if (!competition.id) {
                     competition = competition.set("id", CompetitionCounter.increment());
                 }
-                return state
+                let newState = state
                     .set("draft", new Competition())
                     .set("competitions", state.competitions.set(competition.id, competition))
                     .set("showError", false);
+                return CompetitionStore.save(newState);
             case CompetitionActionTypes.UPDATE_DRAFT_COMPETITION:
                 return state.set("draft", action.competition);
             case CompetitionActionTypes.SHOW_COMPETITION_ERROR:
@@ -61,7 +63,7 @@ class CompetitionStore extends ReduceStore {
     static competitionToJs(competition) {
         return {
             id: competition.id,
-            date: competition.date,
+            date: competition.date.getTime(),
             result: competition.result,
             city: competition.city
         }

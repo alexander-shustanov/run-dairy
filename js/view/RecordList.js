@@ -24,11 +24,11 @@ function RecordView(props) {
     let textDate = (date.getDate() + " " + months[date.getMonth()] + ", " + date.getFullYear());
 
     return <div>
-        <TextField name={"Date"} value={textDate}/>
-        <TextField name={"Time"} value={record.time + " min"}/>
-        <TextField name={"Distance"} value={record.distance + " km"}/>
-        <TextField name={"Temperature"} value={weather.temperature + " °C"}/>
-        <TextField name={"Humidity"} value={weather.humidity + " %"}/>
+        <TextField name="Date" value={textDate}/>
+        <TextField name="Time" value={record.time + " min"}/>
+        <TextField name="Distance" value={record.distance + " km"}/>
+        <TextField name="Temperature" value={weather.temperature + " °C"}/>
+        <TextField name="Humidity" value={weather.humidity + " %"}/>
         {record.photos.map(photo => <img src={photo}/>)}
     </div>;
 }
