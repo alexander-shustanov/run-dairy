@@ -5,6 +5,9 @@
 'use strict';
 
 import React from 'react';
+import CompetitionActions from '../data/competition/CompetitionActions';
+import NavigationActions from '../navigation/NavigationActions';
+import NavigationRoutes from '../navigation/NavigationRoutes';
 
 const months = ["January", "February", "Mart", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
@@ -22,8 +25,14 @@ function CompetitionView(props) {
 
     let textDate = (date.getDate() + " " + months[date.getMonth()] + ", " + date.getFullYear());
 
+    let edit = () => {
+        CompetitionActions.editCompetition(competition);
+        NavigationActions.goto(NavigationRoutes.COMPETITION_CREATION_FORM);
+    };
+
     return (
-        <div>
+        <div className="competition_view">
+            <button className="back_button edit_button" type="button" onClick={edit}/>
             <TextField name="Date" value={textDate}/>
             <TextField name="City" value={competition.city}/>
             <TextField name="Result" value={competition.result}/>
@@ -48,6 +57,9 @@ function CompetitionsMainView(props) {
     let previousWithHr = [];
 
     let fillWithHr = (upcomingWithHr, upcoming) => {
+        if(upcoming.length == 0) {
+            return;
+        }
         for (let i = upcoming.length - 1; i > 0; i--) {
             upcomingWithHr.push(upcoming[i]);
             upcomingWithHr.push(<hr/>);
@@ -59,9 +71,9 @@ function CompetitionsMainView(props) {
 
     return (
         <div>
-            <h2>Upcoming competitions</h2>
+            {upcomingWithHr.length > 0 ? <h2>Upcoming competitions</h2> : []}
             {upcomingWithHr}
-            <h2>Previous competitions</h2>
+            {previousWithHr.length > 0 ? <h2>Previous competitions</h2> : []}
             {previousWithHr}
         </div>
     );

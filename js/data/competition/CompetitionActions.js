@@ -31,6 +31,12 @@ const Actions = {
         Dispatcher.dispatch({
             type: ActionTypes.SHOW_COMPETITION_ERROR
         });
+    },
+    editCompetition(competition) {
+        Dispatcher.dispatch({
+            type: ActionTypes.EDIT_COMPETITION,
+            competition
+        });
     }
 };
 

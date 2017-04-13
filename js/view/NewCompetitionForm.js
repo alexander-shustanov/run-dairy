@@ -71,7 +71,7 @@ function NewCompetitionForm(props) {
 
             {timeInput}
 
-            <button className="raised_button" type="button" onClick={createCompetition}><span/>create</button>
+            <button className="raised_button" type="button" onClick={createCompetition}><span/>{draft.id ? "update" : "create"}</button>
         </form>
     );
 }

@@ -9,6 +9,8 @@ import Immutable from 'immutable';
 import CompetitionActionTypes from './CompetitionActionTypes';
 import CompetitionCounter from './CompetitionCounter';
 import Competition from './Competition';
+import NavigationActionTypes from '../../navigation/NavigationActionTypes';
+import NavigationRoutes from '../../navigation/NavigationRoutes';
 
 class CompetitionStore extends ReduceStore {
     constructor() {
@@ -47,6 +49,16 @@ class CompetitionStore extends ReduceStore {
                 return state.set("draft", action.competition);
             case CompetitionActionTypes.SHOW_COMPETITION_ERROR:
                 return state.set("showError", true);
+            case CompetitionActionTypes.EDIT_COMPETITION:
+                return state.set("draft", action.competition);
+            case NavigationActionTypes.GOTO:
+            case NavigationActionTypes.REPLACE:
+                if(action.route != NavigationRoutes.COMPETITION_CREATION_FORM) {
+                    return state.set("draft", new Competition());
+                }
+                return state;
+            case NavigationActionTypes.BACK:
+                return state.set("draft", new Competition());
             default:
                 return state;
         }

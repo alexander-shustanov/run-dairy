@@ -362,6 +362,20 @@ $day_block_height: 50px;
     outline: none;
 }
 
+.competition_view {
+    position: relative;
+}
+
+.edit_button {
+    position: absolute;
+    top: -0.5em;
+    right: 0;
+    background: url("../img/ic_mode_edit_black_24px.svg") no-repeat center;
+    &::before {
+        background: #aaaaaa;
+    }
+}
+
 .toolbar_title {
     margin-left: 0.5em;
     color: white;
