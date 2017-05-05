@@ -40,6 +40,7 @@ function getStates() {
         },
         competitions: CompetitionStore.getState().competitions,
         competitionDraft: CompetitionStore.getState().draft,
+        cityLocations: CompetitionStore.getState().citiesLocation,
         showCompetitionError: CompetitionStore.getState().showError,
         cities: CityStore.getState().cities,
 

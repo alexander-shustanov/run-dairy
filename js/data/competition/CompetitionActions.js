@@ -37,6 +37,19 @@ const Actions = {
             type: ActionTypes.EDIT_COMPETITION,
             competition
         });
+    },
+    retrieveLocation(city) {
+        Dispatcher.dispatch({
+            type: ActionTypes.RETRIEVE_LOCATION,
+            city
+        });
+    },
+    locationRetrieved(city, location) {
+        Dispatcher.dispatch({
+            type: ActionTypes.LOCATION_RETRIEVED,
+            city,
+            location
+        });
     }
 };
 

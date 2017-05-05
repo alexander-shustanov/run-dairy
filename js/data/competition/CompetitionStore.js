@@ -7,6 +7,7 @@ import {ReduceStore} from 'flux/utils';
 import RecordDispatcher from '../RecordDispatcher';
 import Immutable from 'immutable';
 import CompetitionActionTypes from './CompetitionActionTypes';
+import CompetitionActions from './CompetitionActions';
 import CompetitionCounter from './CompetitionCounter';
 import Competition from './Competition';
 import NavigationActionTypes from '../../navigation/NavigationActionTypes';
@@ -21,6 +22,8 @@ class CompetitionStore extends ReduceStore {
         let state = new (Immutable.Record({
             competitions: Immutable.OrderedMap(),
             draft: new Competition(),
+            citiesLocation: Immutable.Map(),
+            awaitLocation: Immutable.List(),
             showError: false
         }))();
         if (localStorage.competitionStore) {
@@ -59,6 +62,28 @@ class CompetitionStore extends ReduceStore {
                 return state;
             case NavigationActionTypes.BACK:
                 return state.set("draft", new Competition());
+            case CompetitionActionTypes.RETRIEVE_LOCATION:
+                let city = action.city;
+                if(!state.awaitLocation.contains(city)) {
+                    let request = new XMLHttpRequest();
+                    request.open('GET','https://maps.googleapis.com/maps/api/geocode/json?address='+city+'&key=AIzaSyA4BVjew7y1xOTcJaa1kICD6Cyozsg6pdA', true);
+
+                    request.onreadystatechange = () => {
+                        if(request.readyState == 4) {
+                            let response = JSON.parse(request.responseText);
+                            CompetitionActions.locationRetrieved(city,response.results[0].geometry.location);
+                        }
+                    };
+
+                    request.send();
+
+                    return state.set("awaitLocation", state.awaitLocation.push(city));
+                }
+                return state;
+            case CompetitionActionTypes.LOCATION_RETRIEVED:
+                let awaitLocation = state.awaitLocation.remove(state.awaitLocation.indexOf(action.city));
+                let locations = state.citiesLocation.set(action.city, action.location);
+                return state.set("awaitLocation", awaitLocation).set("citiesLocation", locations);
             default:
                 return state;
         }
@@ -77,7 +102,8 @@ class CompetitionStore extends ReduceStore {
             id: competition.id,
             date: competition.date.getTime(),
             result: competition.result,
-            city: competition.city
+            city: competition.city,
+            time: competition.time
         }
     }
 }

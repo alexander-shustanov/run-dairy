@@ -70,8 +70,9 @@ function CompetitionsMainView(props) {
     fillWithHr(previousWithHr, previous);
 
     return (
-        <div>
+        <div className="competitions_list">
             {upcomingWithHr.length > 0 ? <h2>Upcoming competitions</h2> : []}
+            <button className="back_button map_button" type="button" onClick={() => NavigationActions.goto(NavigationRoutes.MAP)}/>
             {upcomingWithHr}
             {previousWithHr.length > 0 ? <h2>Previous competitions</h2> : []}
             {previousWithHr}

@@ -10,7 +10,8 @@ const NavigationRoutes = {
     COMPETITION_CREATION_FORM: "COMPETITION_CREATION_FORM",
     DAY_LIST: "DAY_LIST",
     STATISTICS: "STATISTICS",
-    COMPETITIONS: "COMPETITIONS"
+    COMPETITIONS: "COMPETITIONS",
+    MAP: "MAP",
 };
 
 export default NavigationRoutes;

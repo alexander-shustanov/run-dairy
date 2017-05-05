@@ -255,6 +255,17 @@
   .edit_button::before {
     background: #aaaaaa; }
 
+.competitions_list {
+  position: relative; }
+
+.map_button {
+  position: absolute;
+  top: -0.5em;
+  right: 0;
+  background: url("../img/ic_map_black_24px.svg") no-repeat center; }
+  .map_button::before {
+    background: #aaaaaa; }
+
 .toolbar_title {
   margin-left: 0.5em;
   color: white;

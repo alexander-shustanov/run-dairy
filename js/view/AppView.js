@@ -14,6 +14,7 @@ import RecordList from './RecordList';
 import StatisticsView from './StatisticsView';
 import CompetitionsMainView from './CompetitionsMainView';
 import Toolbar from './Toolbar';
+import MapView from './MapView';
 import DateUtils from '../data/DateUtils';
 
 function AppView(props) {
@@ -46,6 +47,10 @@ function AppView(props) {
         case NavigationRoutes.DAY_LIST:
             curView = <RecordList {...props}/>;
             title = "Runs at " + DateUtils.printDate(props.navigationParams);
+            break;
+        case NavigationRoutes.MAP:
+            curView = <MapView {...props}/>;
+            title = "Future competitions map";
             break;
     }
 
