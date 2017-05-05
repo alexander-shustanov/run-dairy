@@ -13,6 +13,7 @@ import {DateInput, TextInput, Spinner, FileInput, Rating} from './Form';
 function NewRecordForm(props) {
     let loadingStates = props.files;
     let photos = loadingStates.photos;
+    let tracks = loadingStates.tracks;
 
     let record = props.draftRecord;
     let weather = record.weather;
@@ -27,7 +28,9 @@ function NewRecordForm(props) {
 
     let createRecord = () => {
         if (allGood) {
-            props.addRecord(record.set("photos", photos.map(container => container.content)));
+            props.addRecord(record
+                .set("photos", photos.map(container => container.content))
+                .set("track", tracks.map(container => container.content)[0]));
             props.back();
         } else {
             props.showError();
@@ -100,7 +103,13 @@ function NewRecordForm(props) {
                 value={photos.map(container => container.file)}
                 name="Images"
                 multiple={true}
-                onChange={photos => FileLoadingActions.updateLoadFiles(photos)}
+                onChange={photos => FileLoadingActions.updateLoadFiles(photos, true)}
+            />
+            <FileInput
+                value={tracks.map(container => container.file)[0]}
+                name="Track"
+                multiple={false}
+                onChange={tracks => FileLoadingActions.updateLoadFiles(tracks, false)}
             />
             <button className="raised_button" type="button" onClick={createRecord}><span/>create</button>
 

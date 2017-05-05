@@ -10,16 +10,18 @@ import Dispatcher from '../RecordDispatcher';
 
 
 const FileLoadingActions = {
-    updateLoadFiles(files) {
+    updateLoadFiles(files, photos) {
         Dispatcher.dispatch({
             type: FileLoadingActionTypes.UPDATE_LOAD_FILES,
-            files
+            files,
+            photos
         });
     },
-    fileLoaded(file) {
+    fileLoaded(file, photos) {
         Dispatcher.dispatch({
             type: FileLoadingActionTypes.FILE_LOADED,
-            file
+            file,
+            photos
         });
     }
 };

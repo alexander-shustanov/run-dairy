@@ -12,6 +12,7 @@ const FileContainer = Immutable.Record({
     reader: null,
     file: null,
     content: null,
+    photos: true,
     loaded: false,
     loading: true
 });

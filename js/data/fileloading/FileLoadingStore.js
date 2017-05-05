@@ -18,7 +18,10 @@ class FileLoadingStore extends ReduceStore {
     }
 
     getInitialState() {
-        return new Immutable.List();
+        return new (Immutable.Record({
+            photos: new Immutable.List(),
+            tracks: new Immutable.List()
+        }))();
     }
 
     reduce(state, action) {
@@ -28,22 +31,26 @@ class FileLoadingStore extends ReduceStore {
                 let containers = files.map(f => {
                         let container = new FileContainer({
                             file: f,
-                            reader: new FileReader()
+                            reader: new FileReader(),
+                            photos: action.photos
                         });
-                        container.reader.onload = () => FileLoadingActions.fileLoaded(container.file);
+                        container.reader.onload = () => FileLoadingActions.fileLoaded(container.file, container.photos);
                         container.reader.readAsDataURL(f);
                         return container;
                     }
                 );
-                return new Immutable.List(containers);
+                return state.set(action.photos ? "photos" : "tracks", new Immutable.List(containers));
             case FileLoadingActionTypes.FILE_LOADED:
                 let file = action.file;
-                let loadedFileIndex = state.findIndex(container => container.file == file);
-                if(loadedFileIndex == -1) {
+                let list = action.photos ? state.photos : state.tracks;
+                let loadedFileIndex = list.findIndex(container => container.file == file);
+                if (loadedFileIndex == -1) {
                     return state;
                 }
-                let container = state.get(loadedFileIndex);
-                return state.set(loadedFileIndex, container.set("loaded", true).set("loading", false).set("content", container.reader.result));
+                let container = list.get(loadedFileIndex);
+                let l = list.set(loadedFileIndex, container.set("loaded", true).set("loading", false).set("content", container.reader.result));
+                return state.set(action.photos ? "photos" : "tracks", l);
+
             default:
                 return state;
         }

@@ -36,7 +36,8 @@ function getStates() {
             date: DateDialogStore.getState()
         },
         files: {
-            photos: FileLoadingStore.getState().toJS()
+            photos: FileLoadingStore.getState().photos.toJS(),
+            tracks: FileLoadingStore.getState().tracks.toJS(),
         },
         competitions: CompetitionStore.getState().competitions,
         competitionDraft: CompetitionStore.getState().draft,
